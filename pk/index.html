@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/jquery-3.2.1.js"></script>
+    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="css/iconfont.css">
+</head>
+<style>
+    *{
+        margin:0;
+        padding:0;
+    }
+    html,body{
+        width:100%;
+        height:100%;
+        background-image: url(img/aa.jpg);
+        overflow: hidden;
+    }
+    .pai{
+        width:70px;
+        height:100px;
+        border:3px solid #000;
+        background:skyblue;
+        position: absolute;
+        left:600px;
+        top:0;
+        opacity: 0;
+        background-size: cover;
+    }
+    .box{
+        width:100%;
+        height:100%;
+        margin:0 auto;
+        position: relative;
+        background:rgba(0,0,0,0.3);
+    }
+    .active{
+        border:3px solid orangered;
+    }
+    .box .rbtn,.box .lbtn{
+        width:60px;
+        height:30px;
+        background:red;
+        border-radius:5px;
+        position: absolute;
+        left:570px;
+    }
+    .rbtn{
+        bottom:65px;
+    }
+    .lbtn{
+        bottom:25px;
+    }
+</style>
+<body>
+    <div class="box">
+        <div class="rbtn">右</div>
+        <div class="lbtn">左</div>
+    </div>
+</body>
+</html>
+<script>
+    $(function(){
+        //获取花色和数字
+        let arr=[];
+        let color=["h","c","s","d"];
+        let biao={};
+        for(let i=1;i<53;i++){
+            let huase=color[Math.floor(Math.random()*4)];
+            let shuzi=Math.floor(Math.random()*13+1);
+            while(biao[huase+"_"+shuzi]){
+                 huase=color[Math.floor(Math.random()*4)];
+                 shuzi=Math.floor(Math.random()*13+1);
+            }
+            biao[huase+"_"+shuzi]=true;
+            arr.push({huase,shuzi})
+        }
+
+        //创建扑克牌
+        let box=$(".box");
+        let n=0;
+        for(let i=0;i<7;i++){
+            for(let j=0;j<i+1;j++){
+                let index=n;
+                n++;
+                let pai=$("<div>");
+                pai.addClass("pai")
+                    .prop('id',`${i}_${j}`)
+                    .css(`background-image`,`url(img/${arr[index]['huase']}${arr[index]['shuzi']}.png)`)
+                    .data("num",arr[index]['shuzi'])
+                    .delay(50*n)
+                    .appendTo(box)
+                    .animate({left:600-50*i+100*j,top:70*i,opacity:1})
+            }
+        }
+
+
+
+        for(;n<arr.length;n++){
+            let pai=$("<div>");
+            pai.addClass("pai zuo")
+                .css(`background-image`,`url(img/${arr[n]['huase']}${arr[n]['shuzi']}.png)`)
+                //                    .html(arr[n]['huase']+'---'+arr[n]['shuzi'])
+                .data("num",arr[n]['shuzi'])
+                .delay(50*n)
+                .appendTo(box)
+                .animate({left:400,top:550,opacity:1})
+
+        }
+
+        //点击扑克牌
+        let first=null;
+        $(".pai").click(function(){
+            let num=$(this).prop("id").split("_");
+            let ele=$(`#${parseInt(num[0])+1}_${parseInt(num[1])}`);
+            let ele1=$(`#${parseInt(num[0])+1}_${parseInt(num[1])+1}`);
+            if(ele.length==1||ele1.length==1){
+                return;
+            }
+
+            $(this).toggleClass("active");
+            if($(this).hasClass("active")){
+                $(this).animate({top:"-=20"})
+            }else{
+                $(this).animate({top:"+=20"})
+            }
+
+            //删除
+            if(!first){
+                first=this;
+                let sum=$(first).data("num")
+                if(sum==13){
+                    $(".active").animate({left:800,top:0}).queue(function(){
+                        $(this).remove();
+                    })
+                    first=null;
+                }
+
+            }else{
+                let sum=$(first).data("num")+$(this).data("num");
+                if(sum==13){
+                    $(".active").animate({left:800,top:0}).queue(function(){
+                        $(this).remove();
+                    })
+                }else{
+                    $(".active")
+                        .removeClass("active")
+                        .animate({top:"+=20"})
+                }
+                first=null;
+            }
+        })
+
+        //右按钮
+        let z=1;
+        let rbtn=$(".rbtn");
+        rbtn.on("click",function(){
+            z++;
+            $(".zuo").last()
+                .removeClass("zuo")
+                .addClass("you")
+                .css("zIndex",z)
+                .animate({left:"+=300"})
+        })
+
+        //左按钮
+        let lbtn=$(".lbtn");
+        lbtn.on("click",function(){
+            let you=$(".you");
+            if(you.length==0){
+                return;
+            }
+            for(let i=you.length;i>=0;i--){
+                $(you[i])
+                    .delay(100*i)
+                    .animate({left:"-=300"},function(){
+                        $(this).css("zIndex",0);
+                    })
+                    .removeClass("you")
+                    .addClass("zuo")
+            }
+        })
+    })
+</script>

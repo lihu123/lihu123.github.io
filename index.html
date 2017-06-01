@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>个人主页</title>
+<link type="text/css" href="css/jquery.fullPage.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />
+<link type="text/css" href="css/style.css" rel="stylesheet" />
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/jquery.fullPage.min.js"></script>
+<script type="text/javascript" src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div id="fullpage">
+    <div class="section">
+    	<div class="content-1">
+        	<span>
+            海纳百川，有容乃大。壁立千仞，无欲则刚。</span>
+        </div>
+    </div>
+    <div class="section">
+    	<div class="content-2">
+        	<div class="con-con">
+            	<ul>
+                	<li data-container="body" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="">
+                    	<a href="自我介绍.html"><img src="image/logo.png" /></a>
+                        <span class="zp">自我介绍</span>
+                    </li>
+                    <li data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="">
+                    	<a href="xm/xm.html"><img src="image/logo.png" /></a>
+                        <span class="zp">小米官网</span>
+                    </li>
+                    <li data-container="body" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="">
+                    	<a href="tm/index.html"><img src="image/logo.png" /></a>
+                        <span class="zp">天猫官网</span>
+                    </li>
+                    <li data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="">
+                    	<a href="dz/jiaoben4478/index.html"><img src="image/logo.png" /></a>
+                        <span class="zp">打字游戏</span>
+                    </li>
+                    <li data-container="body" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="">
+                    	<a href="pk/index.html"><img src="image/logo.png" /></a>
+                        <span class="zp">扑克牌游戏</span>
+                    </li>
+                    <li data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="">
+                    	<a href="yinyue/jiaoben3755/index.html"><img src="image/logo.png" /></a>
+                        <span class="zp">音乐播放器</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+    	<div class="content-3">
+        	<ul>
+            	<li>
+                	<a></a>
+                    <a></a>
+                    <a href="#">
+                    	<img src="image/img-1.jpg" />
+                    	<p></p>
+                    </a>
+                </li>
+                <li>
+                	<a href="#">
+                    	<img src="image/img-2.jpg" />
+                    	<p></p>
+                    </a>
+                    <a href="#">
+                    	<img src="image/img-3.jpg" />
+                    	<p></p>
+                    </a>
+                    <a href="#">
+                    	<img src="image/img-4.jpg" />
+                    	<p></p>
+                    </a>
+                </li>
+                <li>
+                	<a href="#">
+                    	<img src="image/img-2.jpg" />
+                    	<p></p>
+                    </a>
+                    <a href="#">
+                    	<img src="image/img-3.jpg" />
+                    	<p></p>
+                    </a>
+                    <a href="#">
+                    	<img src="image/img-4.jpg" />
+                    	<p></p>
+                    </a>
+                </li>
+                <li>
+                	<a href="#">
+                    	<img src="image/img-2.jpg" />
+                    	<p></p>
+                    </a>
+                    <a href="#">
+                    	<img src="image/img-3.jpg" />
+                    	<p></p>
+                    </a>
+                    <a href="#">
+                    	<img src="image/img-4.jpg" />
+                    	<p></p>
+                    </a>
+                </li>
+                <li>
+                	<a href="#">
+                    	<img src="image/img-1.jpg" />
+                    	<p></p>
+                    </a>
+                    <a></a>
+                    <a></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="section">
+    	<div class="contact">
+        	<h3 class="me">我的联系方式</h3>
+            <p class="me">QQ:1713417398</p>
+            <p class="me">天生傲骨正能屈服</p>
+            <a class="ewm"><img src="image/ewm.jpg" /></a>
+        </div>
+    </div>
+</div><br>
+<script>
+$(function(){
+    $('#fullpage').fullpage({
+        'verticalCentered': false,
+        'css3': true,
+        'sectionsColor': ['#825b56', '#343b4e', '#4b6558', '#822c2b'],
+        anchors: ['page1', 'page2', 'page3', 'page4'],
+        'navigation': true,
+        'navigationPosition': 'right',
+        'navigationTooltips': ['首页', '作品', '画册', '联系'],
+    });
+	
+	$("[data-toggle='popover']").popover();
+
+})
+//作品循环
+$(".content-3 ul li").each(function (i) {
+	$(this).attr("style", "-webkit-transition-delay:" + i * 0.2 + "s;"
+			+ "-moz-transition-delay:" + i * 0.2 + "s;"
+			+ "-o-transition-delay:" + i * 0.2 + "s;"
+			+ "transition-delay:" + i * 0.2 + "s;");
+});
+
+</script>
+</body>
+</html>
